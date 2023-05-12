@@ -7,9 +7,11 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import Product, { IProducts } from '@src/models/Product';
 
 // **** Variables **** //
-
+/**
+ * export variables for easy testing.
+ */
 export const PRODUCT_NOT_FOUND = 'Product not found';
-
+export const RATING_MORE_THAN_5 = 'Rating must be less than 5';
 // **** Functions **** //
 
 /**
@@ -55,6 +57,7 @@ async function update(
   const productObj: IProducts | null = await Product.findByIdAndUpdate(
     id,
     product,
+    { new: true },
   );
   if (!productObj) {
     throw new RouteError(HttpStatusCodes.NOT_FOUND, PRODUCT_NOT_FOUND);
@@ -66,7 +69,12 @@ async function update(
  * search for a products.
  */
 async function search(name: IProducts['name']): Promise<IProducts[]> {
-  const product: IProducts[] = await Product.find({ name: name });
+  const product: IProducts[] = await Product.find({
+    name: {
+      $regex: name,
+      $options: 'i',
+    },
+  });
   if (product.length < 1) {
     throw new RouteError(HttpStatusCodes.NOT_FOUND, PRODUCT_NOT_FOUND);
   }
@@ -87,15 +95,14 @@ async function deleteProduct(id: IProducts['_id']) {
 /**
  * rate a product.
  */
-async function rate(id: IProducts['_id'], rating: number): Promise<IProducts> {
+async function rateProduct(id: IProducts['_id'], rating: number): Promise<IProducts> {
+  if (rating > 5) throw new RouteError(HttpStatusCodes.BAD_REQUEST, RATING_MORE_THAN_5);
   const product: IProducts | null = await Product.findByIdAndUpdate(id, {
     $push: {
       rating,
     },
-  });
-  if (!product) {
-    throw new RouteError(HttpStatusCodes.NOT_FOUND, PRODUCT_NOT_FOUND);
-  }
+  }, { new: true });
+  if (!product) throw new RouteError(HttpStatusCodes.NOT_FOUND, RATING_MORE_THAN_5);
   return product;
 }
 
@@ -108,5 +115,5 @@ export default {
   deleteProduct,
   update,
   search,
-  rate,
+  rateProduct,
 } as const;
