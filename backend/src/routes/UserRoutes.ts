@@ -4,50 +4,54 @@ import UserService from '@src/services/UserService';
 import { IUser } from '@src/models/User';
 import { IReq, IRes } from './types/express/misc';
 
+import PwdUtils from '@src/util/PwdUtil';
 
 // **** Functions **** //
+async function register(req: IReq<IUser & { password: string }>, res: IRes) {
+  const { name, email, password } = req.body;
 
-/**
- * Get all users.
- */
-async function getAll(_: IReq, res: IRes) {
-  const users = await UserService.getAll();
-  return res.status(HttpStatusCodes.OK).json({ users });
+  const user = {
+    name,
+    email,
+    hashedPassword: await PwdUtils.getHash(password),
+  };
+  const newUser = await UserService.register(user);
+
+  return res.status(HttpStatusCodes.OK).json({
+    success: true,
+    message: 'user created successfully',
+    user: newUser,
+  });
 }
 
-/**
- * Add one user.
- */
-async function add(req: IReq<{user: IUser}>, res: IRes) {
-  const { user } = req.body;
-  await UserService.addOne(user);
-  return res.status(HttpStatusCodes.CREATED).end();
+async function getHistory(req: IReq<IUser>, res: IRes) {
+
+  const { id } = req.params;
+  const history = await UserService.getHistory(id);
+
+  return res.status(HttpStatusCodes.OK).json({
+    success: true,
+    message: 'user history fetched successfully',
+    history,
+  });
 }
 
-/**
- * Update one user.
- */
-async function update(req: IReq<{user: IUser}>, res: IRes) {
-  const { user } = req.body;
-  await UserService.updateOne(user);
-  return res.status(HttpStatusCodes.OK).end();
-}
+async function addHistory(req: IReq<{ product: string }>, res: IRes) {
+  const { id } = req.params;
+  const { product } = req.body;
+  const history = await UserService.addHistory(id, product);
 
-/**
- * Delete one user.
- */
-async function delete_(req: IReq, res: IRes) {
-  const id = +req.params.id;
-  await UserService.delete(id);
-  return res.status(HttpStatusCodes.OK).end();
+  return res.status(HttpStatusCodes.OK).json({
+    success: true,
+    message: 'user history updated successfully',
+    history,
+  });
 }
-
 
 // **** Export default **** //
 
 export default {
-  getAll,
-  add,
-  update,
-  delete: delete_,
+  register,
+  getHistory,
+  addHistory,
 } as const;
