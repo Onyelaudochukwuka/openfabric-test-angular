@@ -10,10 +10,10 @@ const Paths = {
   Product: {
     Base: '/product',
     Get: '/all',
-    GetById: '/all/:id',
+    GetById: '/item/:id',
     Search: '/search',
     Add: '/add',
-    Update: '/update/id',
+    Update: '/update/:id',
     Delete: '/delete/:id',
     Rate: '/rate/:id',
   },
