@@ -1,10 +1,31 @@
 import { Component } from '@angular/core';
+import { HomeComponent } from './home/home.component';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { HeaderComponent } from "./header/header.component";
+import {MatNativeDateModule} from '@angular/material/core';
+import { MaterialModule } from "./material.module";
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  standalone: true,
+  imports: [
+    HomeComponent,
+    RouterLink,
+    RouterOutlet,
+    HeaderComponent,
+    MatNativeDateModule,
+    MaterialModule,
+  ],
+  template: `
+    <main>
+      <app-header></app-header>
+      <section class="content">
+        <router-outlet></router-outlet>
+      </section>
+    </main>
+  `,
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'homes';
 }
