@@ -9,7 +9,8 @@ export interface IUser {
   cart?: { id: string; quantity: number }[];
   savedItems?: string[];
   // true if user email has verified email
-  emailVerified: boolean;
+  emailVerified?: boolean;
+  _id?: string;
 }
 
 // **** Schema **** //
@@ -30,6 +31,7 @@ const userSchema = new Schema<IUser>({
     type: [String],
     required: false,
     default: [],
+    ref: 'Products',
   },
   cart: {
     type: [{

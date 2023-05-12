@@ -7,7 +7,7 @@ export interface IProducts {
   imageUrl: string;
   description: string;
   rating?: number[];
-  _id: string;
+  _id?: string;
 }
 
 // **** Schema **** //
