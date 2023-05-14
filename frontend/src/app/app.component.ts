@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { HomeComponent } from './home/home.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
-import {MatNativeDateModule} from '@angular/material/core';
-import { MaterialModule } from "./material.module";
 
 @Component({
   selector: 'app-root',
@@ -13,8 +11,6 @@ import { MaterialModule } from "./material.module";
     RouterLink,
     RouterOutlet,
     HeaderComponent,
-    MatNativeDateModule,
-    MaterialModule,
   ],
   template: `
     <main>
