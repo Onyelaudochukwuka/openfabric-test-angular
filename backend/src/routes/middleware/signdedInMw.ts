@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /**
  * Middleware to verify user logged in and is an an admin.
  */
@@ -25,7 +29,7 @@ type TSessionData = JwtPayload;
 /**
  * See note at beginning of file.
  */
-async function adminMw(
+async function signdedInMw(
   req: Request,
   res: Response,
   next: NextFunction,
@@ -49,4 +53,4 @@ async function adminMw(
 
 // **** Export Default **** //
 
-export default adminMw;
+export default signdedInMw;
