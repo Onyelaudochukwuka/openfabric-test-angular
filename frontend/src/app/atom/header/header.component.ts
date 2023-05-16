@@ -2,9 +2,9 @@ import { CommonModule, NgIf } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { CartService } from "../cart.service";
-import { Cart } from "../cart";
-import { ApiService } from "../api.service";
+import { CartService } from "@app/utils/cart.service";
+import { Cart } from "@app/cart";
+import { ApiService } from "@app/utils/api.service";
 @Component({
   selector: 'app-header',
   standalone: true,

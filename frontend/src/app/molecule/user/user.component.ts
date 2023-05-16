@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from "../header/header.component";
+import { HeaderComponent } from "@app/atom/header/header.component";
 import { Router, RouterLink, RouterOutlet } from "@angular/router";
-import { ApiService } from "../api.service";
-import { Cart } from "../cart";
-import { CartItemComponent } from "../cart-item/cart-item.component";
+import { ApiService } from "@app/utils/api.service";
+import { Cart } from "@app/cart";
+import { CartItemComponent } from "@app/atom/cart-item/cart-item.component";
 import { Title } from "@angular/platform-browser";
 
 @Component({

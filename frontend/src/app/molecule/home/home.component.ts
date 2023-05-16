@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
-import { CartItemComponent } from '../cart-item/cart-item.component';
-import { Cart } from '../cart';
-import { CartService } from "../cart.service"
-import { HeaderComponent } from "../header/header.component";
-import { ApiService } from "../api.service";
+import { CartItemComponent } from '@app/atom/cart-item/cart-item.component';
+import { Cart } from '@app/cart';
+import { CartService } from "@app/utils/cart.service"
+import { HeaderComponent } from "@app/atom/header/header.component";
+import { ApiService } from "@app/utils/api.service";
 @Component({
   selector: 'app-home',
   standalone: true,

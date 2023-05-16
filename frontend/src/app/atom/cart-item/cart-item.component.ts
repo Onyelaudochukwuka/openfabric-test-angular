@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule, NgFor, NgOptimizedImage } from '@angular/common';
-import { Cart } from '../cart';
-import { CartService } from '../cart.service';
+import { Cart } from '@app/cart';
+import { CartService } from '@app/utils/cart.service';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { ApiService } from "../api.service";
+import { ApiService } from "@app/utils/api.service";
 @Component({
   selector: 'app-cart-item',
   standalone: true,

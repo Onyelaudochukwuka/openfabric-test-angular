@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
-import { Cart } from '../cart';
-import { CartService } from '../cart.service';
-import { HeaderComponent } from "../header/header.component";
-import { ApiService } from "../api.service";
+import { Cart } from '@app/cart';
+import { CartService } from '@app/utils/cart.service';
+import { HeaderComponent } from "@app/atom/header/header.component";
+import { ApiService } from "@app/utils/api.service";
 
 @Component({
   selector: 'app-product-details',
