@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { CartService } from "../cart.service";
+import { Cart } from "../cart";
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -18,7 +19,7 @@ import { CartService } from "../cart.service";
           <button class="btn btn-outline-success" type="button" (click)="onSearch($event)">Search</button>
         </form>
         <div class="d-flex gap-4 fs-4">
-      <i class="bi bi-person-circle"></i>
+      <a routerLink="/user"><i class="bi bi-person-circle"></i></a>
       <a routerLink="/cart" class="position-relative">
         <i class="bi bi-cart"></i>
         <span
@@ -48,9 +49,10 @@ export class HeaderComponent implements OnInit {
     this.getCartItems()
   }
   getCartItems(): void {
-    console.log(this.cartService.getItems().pipe().subscribe(items => {
-      this.cartItems = items.length;
-    }))
+    this.cartService.getItems().pipe().subscribe(items => {
+      console.log(items)
+      this.cartItems = items.reduce((acc ,val: Cart) => (val?.quantity || 0) + acc, 0);
+    })
   }
   onSearch(event: any) {
     this.searcher.emit(this.search.value ?? '');
