@@ -6,6 +6,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ApiService } from "../api.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -55,7 +57,7 @@ import {
 })
 export class LoginComponent {
   public loginForm!: FormGroup;
-  constructor() {
+  constructor(private apiService: ApiService, private router: Router) {
     this.createForm();
   }
   createForm() {
@@ -68,6 +70,13 @@ export class LoginComponent {
     });
   }
   onSubmit() {
-    console.log(this.loginForm);
+    this.apiService.loginUser(this.loginForm.value).subscribe((res) => {
+      console.log(res)
+      if (!res.success) {
+        alert(res?.error || "Something went wrong");
+      } else {
+        this.router.navigate(['/']);
+      }
+    });
   }
 }
