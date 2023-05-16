@@ -10,11 +10,9 @@ import { HeaderComponent } from "./header/header.component";
     HomeComponent,
     RouterLink,
     RouterOutlet,
-    HeaderComponent,
   ],
   template: `
     <main>
-      <app-header></app-header>
       <section class="content">
         <router-outlet></router-outlet>
       </section>
