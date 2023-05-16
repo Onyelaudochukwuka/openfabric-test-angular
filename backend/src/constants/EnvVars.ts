@@ -16,13 +16,13 @@ export default {
       signed: true,
       path: process.env.COOKIE_PATH ?? "",
       maxAge: Number(process.env.COOKIE_EXP ?? 0),
-      domain: process.env.COOKIE_DOMAIN ?? "",
+      domain: '',
       secure: process.env.SECURE_COOKIE === "true",
     },
   },
   Jwt: {
     Secret: process.env.JWT_SECRET ?? "",
-    Exp: process.env.COOKIE_EXP ?? "", // exp at the same time as the cookie
+    Exp: process.env.JWT_EXP ?? "", // exp at the same time as the cookie
   },
   MONGO_URI: process.env.MONGO_URI ?? "",
   CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME ?? "",
