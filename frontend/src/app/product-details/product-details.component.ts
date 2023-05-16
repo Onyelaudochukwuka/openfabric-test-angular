@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { Cart } from '../cart';
@@ -48,7 +49,8 @@ export class ProductDetailsComponent implements OnInit {
   public product!: Cart;
   constructor(
     private route: ActivatedRoute,
-    private cartService: CartService
+    private cartService: CartService,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
@@ -64,7 +66,9 @@ export class ProductDetailsComponent implements OnInit {
       _id: '1',
       quantity: 1,
     };
+    this.titleService.setTitle(this.product.name);
   }
+
   getRating(ratingArr: number[] | undefined): number {
     let rating = 0;
     ratingArr?.forEach((item: number) => {
