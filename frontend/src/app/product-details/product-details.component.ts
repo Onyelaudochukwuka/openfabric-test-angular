@@ -27,7 +27,7 @@ import { ApiService } from "../api.service";
         <p class="card-text">{{ product.description }}</p>
         <span class="card-text">$ {{ product.price || 0 }}</span>
         <div class="d-flex flex-column ">
-          <small class="card-text">{{ getRating(product.rating) || 0 }}</small>
+          <small class="card-text">Rating: {{ getRating(product.rating) || 0 }}</small>
           <div class="d-flex gap-2 text-warning">
             <span *ngFor="let arr of [1, 2, 3, 4]"
               ><i class="bi bi-star-fill"></i
