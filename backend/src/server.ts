@@ -32,7 +32,7 @@ const app = express();
 app.use(express.json());
 app.use(cors(
   {
-    origin: ['http://localhost:4200'],
+    origin: ['http://localhost:4200', 'https://openfabric-test-angular.vercel.app'],
     maxAge: 3092000000,
     credentials: true,
   }
