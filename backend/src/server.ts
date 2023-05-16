@@ -4,7 +4,7 @@
 
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
-import path from 'path';
+import cors from 'cors';
 import helmet from 'helmet';
 import express, { Request, Response, NextFunction } from 'express';
 import logger from 'jet-logger';
@@ -30,9 +30,15 @@ const app = express();
 
 // Basic middleware
 app.use(express.json());
+app.use(cors(
+  {
+    origin: ['http://localhost:4200'],
+    maxAge: 3092000000,
+    credentials: true,
+  }
+))
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser(EnvVars.CookieProps.Secret));
-
 // Show routes called in console during development
 if (EnvVars.NodeEnv === NodeEnvs.Dev) {
   app.use(morgan('dev'));
@@ -64,7 +70,12 @@ app.use((
   return res.status(status).json({ success: false, error: err.message });
 }); 
 
-
+app.use((req, res) => {
+  res.status(HttpStatusCodes.NOT_FOUND).json({
+    success: false,
+    message: 'Route not found',
+  });
+});
 // **** Export default **** //
 
 export default app;
