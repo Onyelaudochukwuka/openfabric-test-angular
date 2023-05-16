@@ -12,7 +12,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     <a [routerLink]="['/',cartItem._id]">
       <img
         class="card-img-top"
-        ngSrc="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/64/986649/1.jpg?6655"
+        [ngSrc]="cartItem.imageUrl"
         class="w-100 h-auto"
         priority
         width="300"
@@ -30,16 +30,16 @@ import { RouterLink, RouterOutlet } from '@angular/router';
             ></span>
           </div>
         </div>
-        <div *ngIf="quantity" class="d-flex gap-2">
-          +
-          <input [value]="cartItem.quantity" class="card-text" disabled/>
-          -
+        <div *ngIf="quantity" class="d-flex gap-2 fs-3 m-auto">
+          <i class="bi bi-plus btn btn-primary text-white fw-bold" style="cursor: pointer;" (click)="addQuantity()"></i>
+          <input [value]="cartItem.quantity" class="form-control d-flex align-items-center justify-content-center " style="width: fit-content; max-width:60px;" readonly/>
+          <i class="bi bi-dash btn btn-primary text-white fw-bold" style="cursor: pointer;" (click)="minusQuantity()"></i>
         </div>                  
-        <div class="d-flex gap-5">
-          <button class="btn btn-primary fs-6 mt-3" (click)="addToCart()">
+        <div class="d-flex gap-3">
+          <button *ngIf="showAdd" class="btn btn-primary fs-6 mt-3" (click)="addToCart()">
             Add to Cart
           </button>
-          <a [routerLink]="['/product',cartItem._id]" class="btn btn-info text-white fs-6 mt-3">
+          <a [routerLink]="['/product',cartItem._id]" class="btn btn-outline-primary text-white fs-6 mt-3">
             View
           </a>
         </div>
@@ -52,7 +52,9 @@ export class CartItemComponent {
   public rating!: number;
   @Input() public cartItem!: Cart;
   @Input() public quantity!: boolean;
-  constructor(private cartService: CartService) {}
+  @Input() public showAdd!: boolean;
+
+  constructor(private cartService: CartService) { }
   getRating(ratingArr: number[] | undefined): number {
     let rating = 0;
     ratingArr?.forEach((item: number) => {
@@ -63,5 +65,15 @@ export class CartItemComponent {
   addToCart(): void {
     this.cartService.addToCart(this.cartItem);
     console.log('ADDed');
+  }
+  addQuantity(): void {
+    this.cartItem.quantity! += 1;
+    this.cartService.updateQuantity(this.cartItem);
+  }
+  minusQuantity(): void{
+    if (this.cartItem.quantity! > 1) {
+      this.cartItem.quantity! -= 1;
+      this.cartService.updateQuantity(this.cartItem);
+    }
   }
 }
