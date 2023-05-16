@@ -2,7 +2,7 @@ import { Schema, model, models } from 'mongoose';
 
 // **** Types **** //
 export interface IUser {
-  name: string;
+  userName: string;
   email: string;
   hashedPassword: string;
   history?: string[];
@@ -15,7 +15,7 @@ export interface IUser {
 
 // **** Schema **** //
 const userSchema = new Schema<IUser>({
-  name: {
+  userName: {
     type: String,
     required: true,
   },
@@ -28,10 +28,12 @@ const userSchema = new Schema<IUser>({
     required: true,
   },
   history: {
-    type: [String],
+    type: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Products',
+    }],
     required: false,
     default: [],
-    ref: 'Products',
   },
   cart: {
     type: [{
