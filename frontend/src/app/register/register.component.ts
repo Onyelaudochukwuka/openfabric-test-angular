@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from "@angular/router"
 import {
   ReactiveFormsModule,
   FormGroup,
   FormControl,
   Validators,
 } from '@angular/forms';
+import { ApiService } from "../api.service";
 
 @Component({
   selector: 'app-register',
@@ -65,7 +67,7 @@ import {
 })
 export class RegisterComponent {
   public registrationForm!: FormGroup;
-  constructor() {
+  constructor(private apiService: ApiService, private router: Router) {
     this.createForm();
   }
   createForm() {
@@ -76,6 +78,9 @@ export class RegisterComponent {
     });
   }
   onSubmit() {
-    console.log(this.registrationForm);
+    this.apiService.registerUser(this.registrationForm.value).subscribe((res) => {
+      if (!res.success) return alert(res.message);
+      this.router.navigate(['/login'])
+    })
   }
 }
