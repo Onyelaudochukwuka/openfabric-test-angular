@@ -24,6 +24,8 @@ const Paths = {
     Validate: '/validate',
     History: '/get-history',
     AddHistory: '/add-history',
+    GetUser: '/get-user',
+    LogOut: '/logout',
   },
 };
 
