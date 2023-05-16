@@ -39,9 +39,8 @@ export class UserComponent implements OnInit {
   }
   getApi() {
     this.apiService.getUser().subscribe(user => {
-      user.user?.history.map((val) => ({ ...val, quantity: 1 }))
       this.titleService.setTitle(user.user.userName);
-      this.history = user.user?.history;
+      this.history = user.user?.history.map((val) => ({ ...val, quantity: 1 }));
       this.userName = user.user?.userName ?? '';
     });
   }
