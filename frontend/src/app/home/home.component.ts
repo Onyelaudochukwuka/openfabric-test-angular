@@ -19,9 +19,9 @@ import { HeaderComponent } from "../header/header.component";
   template: `
   <app-header (searcher)="onSearch($event)"></app-header>
     <div class="container-fluid">
-      <div class="p-4 row w-100 gap-4 justify-content-between">
-        <div *ngFor="let item of cartitems" class="col-6 col-md-3 mb-3 mb-sm-0">
-            <app-cart-item [cartItem]="item"></app-cart-item>
+      <div class="p-4 row w-100">
+        <div *ngFor="let item of cartitems" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3 mb-sm-4">
+            <app-cart-item [showAdd]="true" [cartItem]="item"></app-cart-item>
         </div>
       </div>
     </div>
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
           'https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/64/986649/1.jpg?6655',
         description: 'Product Description',
         rating: [5, 2, 3, 4],
-        _id: '1',
+        _id: '2',
         quantity: 1,
       },
       {
@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit {
           'https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/64/986649/1.jpg?6655',
         description: 'Product Description',
         rating: [5, 2, 3, 4],
-        _id: '1',
+        _id: '3',
         quantity: 1,
       },
       {
@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
           'https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/64/986649/1.jpg?6655',
         description: 'Product Description',
         rating: [5, 2, 3, 4],
-        _id: '1',
+        _id: '4',
         quantity: 1,
       },
       {
@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit {
           'https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/64/986649/1.jpg?6655',
         description: 'Product Description',
         rating: [5, 2, 3, 4],
-        _id: '1',
+        _id: '5',
         quantity: 1,
       },
       {
@@ -92,7 +92,7 @@ export class HomeComponent implements OnInit {
           'https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/64/986649/1.jpg?6655',
         description: 'Product Description',
         rating: [5, 2, 3, 4],
-        _id: '1',
+        _id: '6',
         quantity: 1,
       },
     ];
