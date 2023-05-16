@@ -30,6 +30,14 @@ export class CartService {
     this.carts.next(this.carts.value);
     console.log(this.carts)
   }
+  updateQuantity(product: Cart) {
+    const index = this.carts.value.findIndex((item) => item._id === product._id);
+    if (index > -1) {
+      this.carts.value[index].quantity = product.quantity;
+      this.carts.next(this.carts.value);
+      return;
+    }
+  }
   getItems(): Observable<Cart[]> {
     return this.carts.asObservable();
   }
