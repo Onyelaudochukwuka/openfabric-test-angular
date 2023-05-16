@@ -14,6 +14,7 @@ export default {
     Options: {
       httpOnly: true,
       signed: true,
+      secure: true,
       path: process.env.COOKIE_PATH ?? "",
       maxAge: Number(process.env.COOKIE_EXP ?? 0),
       secure: process.env.SECURE_COOKIE === "true",
