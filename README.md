@@ -163,27 +163,23 @@ pnpm start
       src              src
        |                |       
        |                |   
-       |                |   
       app             serve.ts
        |                |   
        |                |
- utils,molecule,atom   services,models,routes     
+       atom         services
+       |                |
+       |                |
+      utils            models
+       |                |
+       |                |
+      molecule       routes
        |                |
        |                |
        |----------------|
                |
                |
            Application
-  ..  
-  ├──backend
-  ├── src # contains all source code
-  ├── frontend    
-        ├── src # contains all source code
-            ├── app # contains all page components
-            ├── components  ├── molecule # contains all super components
-                            ├── atom # contains all sub components
-          ├── assets # Images
-
+           
 ## Technologies Used
 - Angular
 - ExpressJs
