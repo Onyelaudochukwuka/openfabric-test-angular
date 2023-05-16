@@ -18,7 +18,6 @@ import { HeaderComponent } from "./header/header.component";
       </section>
     </main>
   `,
-  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'homes';

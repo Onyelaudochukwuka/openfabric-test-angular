@@ -47,7 +47,6 @@ import { ApiService } from "../api.service";
       </div>
     </div>
   `,
-  styleUrls: ['./cart-item.component.scss'],
 })
 export class CartItemComponent {
   public rating!: number;

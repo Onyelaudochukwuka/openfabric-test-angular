@@ -35,7 +35,6 @@ import { ApiService } from "../api.service";
       </div>
     </nav>
   `,
-  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
   value = 'Clear me';

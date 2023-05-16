@@ -52,8 +52,7 @@ import { Router } from "@angular/router";
         </button>
     </form>
     </div>
-  `,
-  styleUrls: ['./login.component.scss'],
+  `
 })
 export class LoginComponent {
   public loginForm!: FormGroup;

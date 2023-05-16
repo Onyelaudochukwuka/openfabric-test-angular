@@ -63,7 +63,6 @@ import { ApiService } from "../api.service";
       </form>
     </div>
   `,
-  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
   public registrationForm!: FormGroup;

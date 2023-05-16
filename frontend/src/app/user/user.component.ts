@@ -28,8 +28,7 @@ import { Title } from "@angular/platform-browser";
       </div>
       </div>
     </div>
-  `,
-  styleUrls: ['./user.component.scss']
+  `
 })
 export class UserComponent implements OnInit {
   public userName!: string;

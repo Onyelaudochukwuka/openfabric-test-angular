@@ -24,7 +24,6 @@ import { CartItemComponent } from "../cart-item/cart-item.component";
       </div>
     </div>
   `,
-  styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
   constructor(private cartService: CartService) { }

@@ -30,7 +30,6 @@ import { ApiService } from "../api.service";
       </div>
     </div>
   `,
-  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   public cartitems!: Cart[];

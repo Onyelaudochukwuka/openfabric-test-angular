@@ -42,7 +42,6 @@ import { ApiService } from "../api.service";
       </div>
     </div>
   `,
-  styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent implements OnInit {
   public productid!: string;
