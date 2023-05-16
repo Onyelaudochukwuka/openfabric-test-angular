@@ -17,7 +17,6 @@ export default {
       secure: true,
       path: process.env.COOKIE_PATH ?? "",
       maxAge: Number(process.env.COOKIE_EXP ?? 0),
-      secure: process.env.SECURE_COOKIE === "true",
       sameSite: "none",
     },
   },
