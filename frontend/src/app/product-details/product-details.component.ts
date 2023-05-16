@@ -5,6 +5,7 @@ import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { Cart } from '../cart';
 import { CartService } from '../cart.service';
 import { HeaderComponent } from "../header/header.component";
+import { ApiService } from "../api.service";
 
 @Component({
   selector: 'app-product-details',
@@ -15,12 +16,11 @@ import { HeaderComponent } from "../header/header.component";
     <div class="container-fluid p-3 p-sm-5 d-flex flex-column flex-md-row gap-5 align-items-center">
       <img
         class="card-img-top"
-        ngSrc="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/64/986649/1.jpg?6655"
-        class="w-75 h-auto m-auto"
+        [ngSrc]="product.imageUrl"
+        class="w-50 h-auto m-auto"
         priority
         width="512"
         height="512"
-        style="max-height: 512px; max-width: auto;"
       />
       <div class="d-flex flex-column gap-3">
         <h6 class="card-title fw-bold fs-3">{{ product.name }}</h6>
@@ -50,23 +50,19 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private cartService: CartService,
-    private titleService: Title
+    private titleService: Title,
+    private apiService: ApiService
   ) {}
 
   ngOnInit(): void {
-    this.productid = this.route.snapshot.params['id'];
-    this.product = {
-      name: 'Product',
-      price: 100,
-      imageUrl:
-        'https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/64/986649/1.jpg?6655',
-      description:
-        'Product Description,Product DescriptionProduct DescriptionProduct DescriptionProduct DescriptionProduct DescriptionProduct DescriptionProduct DescriptionProduct Description',
-      rating: [5, 2, 3, 4],
-      _id: '1',
-      quantity: 1,
-    };
-    this.titleService.setTitle(this.product.name);
+    const productid = this.route.snapshot.params['id'];
+    this.apiService.getOneProduct(productid).subscribe((product: { success: boolean, product: Cart | null }) => {
+      console.log(product);
+      product.product!.quantity = 1;
+      this.product = product.product || { name: '', description: '', price: 0, rating: [0], imageUrl: '', _id: '' };
+      this.titleService.setTitle(this.product.name);
+    });
+    this.addToHistory()
   }
 
   getRating(ratingArr: number[] | undefined): number {
@@ -79,5 +75,14 @@ export class ProductDetailsComponent implements OnInit {
   addToCart(): void {
     this.cartService.addToCart(this.product);
     console.log('ADDed');
+  }
+  addToHistory() {
+    const productid = this.route.snapshot.params['id'];
+    if (productid) {
+      this.apiService.addHistory(productid).subscribe((product) => {
+        console.log(product);
+      });
+
+    }
   }
 }

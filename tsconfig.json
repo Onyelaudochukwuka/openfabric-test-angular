@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": ["./backend/**/*.ts", "./frontend/**/*.ts"],
+     "references": [
+       { "path": "./backend" },
+       { "path": "./frontend" }
+     ]
+}

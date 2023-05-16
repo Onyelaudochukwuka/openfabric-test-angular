@@ -12,7 +12,12 @@ import { CartItemComponent } from "../cart-item/cart-item.component";
   template: `
   <app-header></app-header>
     <div class="container-fluid">
-      <div class="p-4 row w-100 gap-4">
+      <div *ngIf="cartitems.length === 0" 
+      class="container-fluid row align-items-center justify-content-center p-4"
+      style="min-height: 80vh;"> 
+        <h1 class="text-center fs-4">No item in cart</h1>
+      </div>
+      <div class="p-4 row w-100 gap-4" *ngIf="cartitems.length > 0">
         <div *ngFor="let item of cartitems" class="col-6 col-md-3 mb-3 mb-sm-0">
             <app-cart-item [cartItem]="item" [quantity]="true"></app-cart-item>
         </div>

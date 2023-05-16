@@ -4,6 +4,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { CartService } from "../cart.service";
 import { Cart } from "../cart";
+import { ApiService } from "../api.service";
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -14,12 +15,12 @@ import { Cart } from "../cart";
         <div class="header__logo"></div>
       </a>
       <div class="d-flex fs-4" style="flex-basis: 50%;width: 100%;gap: 20px;">
-        <form class="d-flex" role="search" style="flex-basis: 100%">
+        <form (submit)="onSearch($event)" class="d-flex" role="search" style="flex-basis: 100%">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [formControl]="search">
-          <button class="btn btn-outline-success" type="button" (click)="onSearch($event)">Search</button>
+          <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         <div class="d-flex gap-4 fs-4">
-      <a routerLink="/user"><i class="bi bi-person-circle"></i></a>
+      <a routerLink="/user" class="d-flex gap-2 align-items-center" ><span class="fs-6" *ngIf="userName">{{ userName }}</span><i class="bi bi-person-circle"></i></a>
       <a routerLink="/cart" class="position-relative">
         <i class="bi bi-cart"></i>
         <span
@@ -39,22 +40,29 @@ import { Cart } from "../cart";
 export class HeaderComponent implements OnInit {
   value = 'Clear me';
   public cartItems: number = 0;
+  public userName!:string;
   public searchControl = new FormControl();
   @Output() private searcher!: EventEmitter<string>;
   public search = new FormControl('');
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService, private apiService: ApiService) {
     this.searcher = new EventEmitter<string>();
    }
   ngOnInit(): void {
     this.getCartItems()
+    this.getUserName()
+  }
+  getUserName() {
+    this.apiService.getUser().subscribe(user => {
+      this.userName = user.user?.userName ?? '';
+    });
   }
   getCartItems(): void {
     this.cartService.getItems().pipe().subscribe(items => {
-      console.log(items)
-      this.cartItems = items.reduce((acc ,val: Cart) => (val?.quantity || 0) + acc, 0);
+      this.cartItems = items?.reduce((acc, val: Cart) => (val?.quantity || 0) + acc, 0);
     })
   }
   onSearch(event: any) {
+    event.preventDefault();
     this.searcher.emit(this.search.value ?? '');
   }
 }

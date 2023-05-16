@@ -3,6 +3,7 @@ import { CommonModule, NgFor, NgOptimizedImage } from '@angular/common';
 import { Cart } from '../cart';
 import { CartService } from '../cart.service';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { ApiService } from "../api.service";
 @Component({
   selector: 'app-cart-item',
   standalone: true,
@@ -23,9 +24,9 @@ import { RouterLink, RouterOutlet } from '@angular/router';
         <a [routerLink]="['/product',cartItem._id]"><h6 class="card-title fw-bold fs-5">{{ cartItem.name }}</h6></a>
         <span class="card-text">$ {{ cartItem.price || 0 }}</span>
         <div class="d-flex flex-column">
-          <small class="card-text">{{ getRating(cartItem.rating) || 0 }}</small>
-          <div class="d-flex gap-2 text-warning">
-            <span *ngFor="let arr of [1, 2, 3, 4]"
+          <small class="card-text">Ratings: {{ getRating(cartItem.rating) || 0 }}</small>
+          <div *ngIf="getRating(cartItem.rating) > 0" class="d-flex gap-2 text-warning">
+            <span *ngFor="let arr of  getRatingArray()"
               ><i class="bi bi-star-fill"></i
             ></span>
           </div>
@@ -39,7 +40,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
           <button *ngIf="showAdd" class="btn btn-primary fs-6 mt-3" (click)="addToCart()">
             Add to Cart
           </button>
-          <a [routerLink]="['/product',cartItem._id]" class="btn btn-outline-primary text-white fs-6 mt-3">
+          <a [routerLink]="['/product',cartItem._id]" class="btn btn-outline-primary fs-6 mt-3">
             View
           </a>
         </div>
@@ -64,7 +65,6 @@ export class CartItemComponent {
   }
   addToCart(): void {
     this.cartService.addToCart(this.cartItem);
-    console.log('ADDed');
   }
   addQuantity(): void {
     this.cartItem.quantity! += 1;
@@ -75,5 +75,8 @@ export class CartItemComponent {
       this.cartItem.quantity! -= 1;
       this.cartService.updateQuantity(this.cartItem);
     }
+  }
+  getRatingArray(): null[]{
+    return Array(this.rating);
   }
 }
