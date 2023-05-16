@@ -152,6 +152,28 @@ pnpm start
 ```
 
 # Project Structure
+             ...
+              |   
+       ------   --------   
+       |                |
+       |                |         
+    frontend          backend     
+       |                |         
+       |                |              
+      src              src
+       |                |       
+       |                |   
+       |                |   
+      app               |
+       |                |   
+       |                |
+ utils,molecule,atom   services,models,routes     
+       |                |
+       |                |
+       |----------------|
+               |
+               |
+           Application
   ..  
   ├──backend
   ├── src # contains all source code
