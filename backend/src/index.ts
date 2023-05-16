@@ -1,9 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import './pre-start'; // Must be the first import
 import logger from 'jet-logger';
 
 import EnvVars from '@src/constants/EnvVars';
 import server from './server';
-import mongoose, { mongo } from 'mongoose';
+import mongoose from 'mongoose';
 
 
 // **** Run **** //

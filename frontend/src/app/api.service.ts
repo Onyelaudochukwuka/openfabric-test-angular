@@ -7,7 +7,7 @@ import { Cart } from "./cart";
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://localhost:3000/api';
+  private baseUrl = 'https://openfabric-test-angular-production.up.railway.app/api';
   constructor(
     private http: HttpClient,
   ) { }
