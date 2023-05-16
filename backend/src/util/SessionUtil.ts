@@ -5,6 +5,8 @@ import { RouteError } from '@src/other/classes';
 import jsonwebtoken from 'jsonwebtoken';
 
 import EnvVars from '../constants/EnvVars';
+import { IRes } from "@src/routes/types/express/misc";
+import { IUser } from "@src/models/User";
 
 
 // **** Variables **** //
@@ -36,8 +38,8 @@ function getSessionData<T>(req: Request): Promise<string | T | undefined> {
  * Add a JWT to the response 
  */
 async function addSessionData(
-  res: Response,
-  data: string | object,
+  res: IRes,
+  data: IUser,
 ): Promise<Response> {
   if (!res || !data) {
     throw new RouteError(HttpStatusCodes.BAD_REQUEST, Errors.ParamFalsey);
@@ -46,7 +48,10 @@ async function addSessionData(
   const jwt = await _sign(data),
     { Key, Options } = EnvVars.CookieProps;
   // Return
-  return res.cookie(Key, jwt, Options);
+  return res.cookie(Key, jwt, Options).json({
+    success: true,
+    message: 'user logged in successfully',
+  });
 }
 
 /**
@@ -63,11 +68,16 @@ function clearCookie(res: Response): Response {
 /**
  * Encrypt data and return jwt.
  */
-function _sign(data: string | object | Buffer): Promise<string> {
+function _sign(data: IUser): Promise<string> {
+  console.log(Options)
   return new Promise((res, rej) => {
-    jsonwebtoken.sign(data, EnvVars.Jwt.Secret, Options, (err, token) => {
-      return err ? rej(err) : res(token || '');
-    });
+    try {
+      const decoded = jsonwebtoken.sign({userId: data._id}, EnvVars.Jwt.Secret, Options);
+      res(decoded || '');
+    }
+    catch (err) {
+      rej(err);
+    }
   });
 }
 
@@ -76,10 +86,13 @@ function _sign(data: string | object | Buffer): Promise<string> {
  */
 function _decode<T>(jwt: string): Promise<string | undefined | T> {
   return new Promise((res, rej) => {
-    jsonwebtoken.verify(jwt, EnvVars.Jwt.Secret, (err: any, decoded: T) => {
-      return err ? rej(Errors.Validation) : res(decoded );
+    try {
+      const decoded = jsonwebtoken.verify(jwt, EnvVars.Jwt.Secret);
+      res(decoded as T);
+    }catch(err) {
+           rej(Errors.Validation);
+        }
     });
-  });
 }
 
 
